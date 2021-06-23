@@ -49,7 +49,7 @@ async def vidmark(the_media, message, working_dir, watermark_path, output_vid, t
         "-aspect",
         "16:9",
         "-vf",
-        "scale=854:480",
+        "scale=854:480:flags=lanczos",
         output_vid
     ]
     COMPRESSION_START_TIME = time.time()
