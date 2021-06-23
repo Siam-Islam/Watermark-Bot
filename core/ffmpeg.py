@@ -41,13 +41,13 @@ async def vidmark(the_media, message, working_dir, watermark_path, output_vid, t
         "-filter_complex",
         f"[1][0]scale2ref=w='iw*{size}/100':h='ow/mdar'[wm][vid];[vid][wm]overlay={position}",
         "-c:v",
-        "h264",
+        "libx265",
         "-preset",
         mode,
-        "-tune",
-        "film",
-        "-c:a",
-        "copy",
+        "-crf",
+        "20",
+        "-aspect",
+        "16:9",
         output_vid
     ]
     COMPRESSION_START_TIME = time.time()
@@ -128,8 +128,8 @@ async def take_screen_shot(video_file, output_directory, ttl):
         str(ttl),
         "-i",
         video_file,
-        "-vframes",
-        "1",
+        "-vf",
+        "scale=854:480",
         out_put_file_name
     ]
     # width = "90"
