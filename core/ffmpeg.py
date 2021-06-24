@@ -40,12 +40,12 @@ async def vidmark(the_media, message, working_dir, watermark_path, output_vid, t
         watermark_path,
         "-filter_complex",
         f"[1][0]scale2ref=w='iw*{size}/100':h='ow/mdar'[wm][vid];[vid][wm]overlay={position}",
-        "-c:v libx265",
+        "-c:v",
+        "libx265",
         "-preset",
         mode,
-        "-aspect 16:9",
-        "-c:a copy",
-        "-crf 20",
+        "-crf",
+        "20",
         output_vid
     ]
     COMPRESSION_START_TIME = time.time()
