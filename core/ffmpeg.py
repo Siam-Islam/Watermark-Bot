@@ -28,7 +28,24 @@ from pyrogram.errors.exceptions.flood_420 import FloodWait
 
 async def vidmark(the_media, message, working_dir, watermark_path, output_vid, total_time, logs_msg, status, mode, position, size):
     file_genertor_command = [
-        "ffmpeg -hide_banner -loglevel quiet -progress working_dir -i the_media -i watermark_path -filter_complex [1][0]scale2ref=w='iw*{size}/100':h='ow/mdar'[wm][vid];[vid][wm]overlay={position} -c:v libx265 -preset mode -crf 20 -aspect 16:9",
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "quiet",
+        "-progress",
+        working_dir,
+        "-i",
+        the_media,
+        "-i",
+        watermark_path,
+        "-filter_complex",
+        f"[1][0]scale2ref=w='iw*{size}/100':h='ow/mdar'[wm][vid];[vid][wm]overlay={position}",
+        "-c:v libx265",
+        "-preset",
+        mode,
+        "-aspect 16:9",
+        "-c:a copy",
+        "-crf 20",
         output_vid
     ]
     COMPRESSION_START_TIME = time.time()
@@ -109,6 +126,8 @@ async def take_screen_shot(video_file, output_directory, ttl):
         str(ttl),
         "-i",
         video_file,
+        "-vframes",
+        "1",
         out_put_file_name
     ]
     # width = "90"
