@@ -137,7 +137,7 @@ async def VidWatermarkAdder(bot, cmd):
 	## --- Noobie Process --- ##
 	if cmd.photo or (cmd.document and cmd.document.mime_type.startswith("image/")):
 		editable = await cmd.reply_text("Downloading Image ...")
-		watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/thumb.jpg"
+		watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/thumb.vtt"
 		await asyncio.sleep(5)
 		c_time = time.time()
 		await bot.download_media(
@@ -152,7 +152,7 @@ async def VidWatermarkAdder(bot, cmd):
 	working_dir = Config.DOWN_PATH + "/WatermarkAdder/"
 	if not os.path.exists(working_dir):
 		os.makedirs(working_dir)
-	watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/thumb.jpg"
+	watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/thumb.vtt"
 	if not os.path.exists(watermark_path):
 		await cmd.reply_text("You Didn't Set Any Watermark!\n\nSend any JPG or PNG Picture ...")
 		return
@@ -256,7 +256,7 @@ async def VidWatermarkAdder(bot, cmd):
 		height = metadata.get("height")
 	video_thumbnail = None
 	try:
-		video_thumbnail = Config.DOWN_PATH + "/WatermarkAdder/" + str(cmd.from_user.id) + "/" + str(time.time()) + ".jpg"
+		video_thumbnail = Config.DOWN_PATH + "/WatermarkAdder/" + str(cmd.from_user.id) + "/" + str(time.time()) + ".vtt"
 		ttl = random.randint(0, int(duration) - 1)
 		file_genertor_command = [
 			"ffmpeg",
