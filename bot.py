@@ -122,7 +122,7 @@ async def SettingsBot(bot, cmd):
 	)
 
 
-@AHBot.on_message(filters.document | filters.video | filters.photo & filters.private)
+@AHBot.on_message(filters.document | filters.video | filters.file & filters.private)
 async def VidWatermarkAdder(bot, cmd):
 	if not await db.is_user_exist(cmd.from_user.id):
 		await db.add_user(cmd.from_user.id)
@@ -135,7 +135,7 @@ async def VidWatermarkAdder(bot, cmd):
 		if fsub == 400:
 			return
 	## --- Noobie Process --- ##
-	if cmd.photo or (cmd.document and cmd.document.mime_type.startswith("file/")):
+	if cmd.file or (cmd.document and cmd.document.mime_type.startswith("file/")):
 		editable = await cmd.reply_text("Downloading Image ...")
 		watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/file.vtt"
 		await asyncio.sleep(5)
