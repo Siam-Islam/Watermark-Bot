@@ -76,7 +76,7 @@ async def SettingsBot(bot, cmd):
 		position_tag = "Bottom Left"
 	elif watermark_position == "main_w-overlay_w-5:main_h-overlay_h-5":
 		position_tag = "Bottom Right"
-	elif watermark_position == "main_w-overlay_w-15:15":
+	elif watermark_position == "main_w-overlay_w-5:5":
 		position_tag = "Top Right"
 	elif watermark_position == "5:5":
 		position_tag = "Top Left"
@@ -112,7 +112,7 @@ async def SettingsBot(bot, cmd):
 		reply_markup=InlineKeyboardMarkup(
 			[
 				[InlineKeyboardButton(f"Watermark Position - {position_tag}", callback_data="lol")],
-				[InlineKeyboardButton("Set Top Left", callback_data=f"position_5:5"), InlineKeyboardButton("Set Top Right", callback_data=f"position_main_w-overlay_w-15:15")],
+				[InlineKeyboardButton("Set Top Left", callback_data=f"position_5:5"), InlineKeyboardButton("Set Top Right", callback_data=f"position_main_w-overlay_w-5:5")],
 				[InlineKeyboardButton("Set Bottom Left", callback_data=f"position_5:main_h-overlay_h"), InlineKeyboardButton("Set Bottom Right", callback_data=f"position_main_w-overlay_w-5:main_h-overlay_h-5")],
 				[InlineKeyboardButton(f"Watermark Size - {size_tag}", callback_data="lel")],
 				[InlineKeyboardButton("5%", callback_data=f"size_5"), InlineKeyboardButton("7%", callback_data=f"size_7"), InlineKeyboardButton("10%", callback_data=f"size_10"), InlineKeyboardButton("15%", callback_data=f"size_15"), InlineKeyboardButton("20%", callback_data=f"size_20")],
@@ -122,7 +122,7 @@ async def SettingsBot(bot, cmd):
 	)
 
 
-@AHBot.on_message(filters.document | filters.video | filters.file & filters.private)
+@AHBot.on_message(filters.document | filters.video | filters.photo & filters.private)
 async def VidWatermarkAdder(bot, cmd):
 	if not await db.is_user_exist(cmd.from_user.id):
 		await db.add_user(cmd.from_user.id)
@@ -135,9 +135,9 @@ async def VidWatermarkAdder(bot, cmd):
 		if fsub == 400:
 			return
 	## --- Noobie Process --- ##
-	if cmd.file or (cmd.document and cmd.document.mime_type.startswith("file/")):
+	if cmd.photo or (cmd.document and cmd.document.mime_type.startswith("image/")):
 		editable = await cmd.reply_text("Downloading Image ...")
-		watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/file.vtt"
+		watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/thumb.jpg"
 		await asyncio.sleep(5)
 		c_time = time.time()
 		await bot.download_media(
@@ -152,7 +152,7 @@ async def VidWatermarkAdder(bot, cmd):
 	working_dir = Config.DOWN_PATH + "/WatermarkAdder/"
 	if not os.path.exists(working_dir):
 		os.makedirs(working_dir)
-	watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/file.vtt"
+	watermark_path = Config.DOWN_PATH + "/" + str(cmd.from_user.id) + "/thumb.jpg"
 	if not os.path.exists(watermark_path):
 		await cmd.reply_text("You Didn't Set Any Watermark!\n\nSend any JPG or PNG Picture ...")
 		return
@@ -211,7 +211,7 @@ async def VidWatermarkAdder(bot, cmd):
 		position_tag = "Bottom Left"
 	elif watermark_position == "main_w-overlay_w-5:main_h-overlay_h-5":
 		position_tag = "Bottom Right"
-	elif watermark_position == "main_w-overlay_w-15:15":
+	elif watermark_position == "main_w-overlay_w-5:5":
 		position_tag = "Top Right"
 	elif watermark_position == "5:5":
 		position_tag = "Top Left"
@@ -256,7 +256,7 @@ async def VidWatermarkAdder(bot, cmd):
 		height = metadata.get("height")
 	video_thumbnail = None
 	try:
-		video_thumbnail = Config.DOWN_PATH + "/WatermarkAdder/" + str(cmd.from_user.id) + "/" + str(time.time()) + ".vtt"
+		video_thumbnail = Config.DOWN_PATH + "/WatermarkAdder/" + str(cmd.from_user.id) + "/" + str(time.time()) + ".jpg"
 		ttl = random.randint(0, int(duration) - 1)
 		file_genertor_command = [
 			"ffmpeg",
@@ -512,7 +512,7 @@ async def button(bot, cmd: CallbackQuery):
 				reply_markup=InlineKeyboardMarkup(
 					[
 						[InlineKeyboardButton(f"Watermark Position - {position_tag}", callback_data="lol")],
-						[InlineKeyboardButton("Set Top Left", callback_data=f"position_5:5"), InlineKeyboardButton("Set Top Right", callback_data=f"position_main_w-overlay_w-15:15")],
+						[InlineKeyboardButton("Set Top Left", callback_data=f"position_5:5"), InlineKeyboardButton("Set Top Right", callback_data=f"position_main_w-overlay_w-5:5")],
 						[InlineKeyboardButton("Set Bottom Left", callback_data=f"position_5:main_h-overlay_h"), InlineKeyboardButton("Set Bottom Right", callback_data=f"position_main_w-overlay_w-5:main_h-overlay_h-5")],
 						[InlineKeyboardButton(f"Watermark Size - {size_tag}", callback_data="lel")],
 						[InlineKeyboardButton("5%", callback_data=f"size_5"), InlineKeyboardButton("7%", callback_data=f"size_7"), InlineKeyboardButton("10%", callback_data=f"size_10"), InlineKeyboardButton("15%", callback_data=f"size_15"), InlineKeyboardButton("20%", callback_data=f"size_20")],
