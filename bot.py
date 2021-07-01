@@ -76,7 +76,7 @@ async def SettingsBot(bot, cmd):
 		position_tag = "Bottom Left"
 	elif watermark_position == "main_w-overlay_w/2:y=h-th-10:enable='between(t,1,10)'":
 		position_tag = "Bottom Right"
-	elif watermark_position == "main_w-overlay_w-15:15:enable='between(t,1,10)'":
+	elif watermark_position == "x=(w-text_w)/2:y=h-th-10:enable='between(t,1,10)'":
 		position_tag = "Top Right"
 	elif watermark_position == "5:5":
 		position_tag = "Top Left"
@@ -112,7 +112,7 @@ async def SettingsBot(bot, cmd):
 		reply_markup=InlineKeyboardMarkup(
 			[
 				[InlineKeyboardButton(f"Watermark Position - {position_tag}", callback_data="lol")],
-				[InlineKeyboardButton("Set Top Left", callback_data=f"position_5:5"), InlineKeyboardButton("Set Top Right", callback_data=f"position_main_w-overlay_w-15:15:enable='between(t,1,10)'")],
+				[InlineKeyboardButton("Set Top Left", callback_data=f"position_5:5"), InlineKeyboardButton("Set Top Right", callback_data=f"x=(w-text_w)/2:y=h-th-10:enable='between(t,1,10)'")],
 				[InlineKeyboardButton("Set Bottom Left", callback_data=f"position_5:main_h-overlay_h"), InlineKeyboardButton("Set Bottom Right", callback_data=f"main_w-overlay_w/2:y=h-th-10:enable='between(t,1,10)'")],
 				[InlineKeyboardButton(f"Watermark Size - {size_tag}", callback_data="lel")],
 				[InlineKeyboardButton("5%", callback_data=f"size_5"), InlineKeyboardButton("7%", callback_data=f"size_7"), InlineKeyboardButton("10%", callback_data=f"size_10"), InlineKeyboardButton("15%", callback_data=f"size_15"), InlineKeyboardButton("20%", callback_data=f"size_20")],
@@ -211,7 +211,7 @@ async def VidWatermarkAdder(bot, cmd):
 		position_tag = "Bottom Left"
 	elif watermark_position == "main_w-overlay_w/2:y=h-th-10:enable='between(t,1,10)'":
 		position_tag = "Bottom Right"
-	elif watermark_position == "main_w-overlay_w-15:15:enable='between(t,1,10)'":
+	elif watermark_position == "x=(w-text_w)/2:y=h-th-10:enable='between(t,1,10)'":
 		position_tag = "Top Right"
 	elif watermark_position == "5:5":
 		position_tag = "Top Left"
